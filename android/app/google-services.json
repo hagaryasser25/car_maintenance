@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "578566498693",
+    "project_id": "car-maintenance-5d764",
+    "storage_bucket": "car-maintenance-5d764.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578566498693:android:480d921cf8a2178e497cec",
+        "android_client_info": {
+          "package_name": "com.example.car_maintenance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578566498693-ao1kro95utac4uae345b6cim3s75gfl2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdT73iY0oatIJLBtglFjBhXuYqT84F0Us"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578566498693-ao1kro95utac4uae345b6cim3s75gfl2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
