@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../models/cars_model.dart';
+import '../models/gallery_model.dart';
 
 class AdminCars extends StatefulWidget {
   String category;
@@ -25,6 +26,7 @@ class _AdminCarsState extends State<AdminCars> {
   late FirebaseApp app;
   List<Cars> carsList = [];
   List<String> keyslist = [];
+  List<Gallery> galleryList = [];
 
   @override
   void didChangeDependencies() {
@@ -41,6 +43,21 @@ class _AdminCarsState extends State<AdminCars> {
       print(event.snapshot.value);
       Cars p = Cars.fromJson(event.snapshot.value);
       carsList.add(p);
+      
+      keyslist.add(event.snapshot.key.toString());
+      setState(() {});
+    });
+  }
+
+   @override
+  void fetchGallerys() async {
+    app = await Firebase.initializeApp();
+    database = FirebaseDatabase(app: app);
+    base = database.reference().child("gallerys");
+    base.onChildAdded.listen((event) {
+      print(event.snapshot.value);
+      Gallery p = Gallery.fromJson(event.snapshot.value);
+      galleryList.add(p);
       keyslist.add(event.snapshot.key.toString());
       setState(() {});
     });

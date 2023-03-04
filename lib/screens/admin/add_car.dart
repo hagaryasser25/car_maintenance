@@ -24,6 +24,7 @@ class AddCar extends StatefulWidget {
 }
 
 class _AddCarState extends State<AddCar> {
+  String dropdownValue = 'Autohub';
   var galleryNameController = TextEditingController();
   var nameController = TextEditingController();
   var modelController = TextEditingController();
@@ -33,6 +34,32 @@ class _AddCarState extends State<AddCar> {
 
   String imageUrl = '';
   File? image;
+
+    late DatabaseReference base;
+  late FirebaseDatabase database;
+  late FirebaseApp app;
+  List<Gallery> galleryList = [];
+  List<String> keyslist = [];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchGallerys();
+  }
+
+  @override
+  void fetchGallerys() async {
+    app = await Firebase.initializeApp();
+    database = FirebaseDatabase(app: app);
+    base = database.reference().child("galleryNames");
+    base.onChildAdded.listen((event) {
+      print(event.snapshot.value);
+      Gallery p = Gallery.fromJson(event.snapshot.value);
+      galleryList.add(p);
+      keyslist.add(event.snapshot.key.toString());
+      setState(() {});
+    });
+  }
 
 
 
@@ -206,22 +233,51 @@ class _AddCarState extends State<AddCar> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 65.h,
-                    child: TextField(
-                      controller: galleryNameController,
-                      decoration: InputDecoration(
-                        fillColor: HexColor('#155564'),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor('#fdd47c'), width: 2.0),
+                  
+                 DecoratedBox(
+                      decoration: ShapeDecoration(
+                        shape: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey, width: 2.0),
                         ),
-                        border: OutlineInputBorder(),
-                        hintText: 'اسم المعرض',
+                      ),
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        underline: SizedBox(),
+
+                        // Step 3.
+                        value: dropdownValue,
+                        icon: Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Icon(Icons.arrow_drop_down,
+                              color: Colors.grey),
+                        ),
+
+                        // Step 4.
+                        items: keyslist.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: 5,
+                              ),
+                              child: Text(
+                                value,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color.fromARGB(255, 119, 118, 118)),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        // Step 5.
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
                       ),
                     ),
-                  ),
-                  SizedBox(
+                     SizedBox(
                     height: 25.h,
                   ),
                   SizedBox(
@@ -322,7 +378,7 @@ class _AddCarState extends State<AddCar> {
                         primary: Colors.amber,
                       ),
                       onPressed: () async {
-                        String galleryName = galleryNameController.text.trim();
+                        String galleryName = dropdownValue;
                         String name = nameController.text.trim();
                         String model = modelController.text.trim();
                         String color = colorController.text.trim();

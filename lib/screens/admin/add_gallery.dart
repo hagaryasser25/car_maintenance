@@ -275,8 +275,17 @@ class _AddGalleryState extends State<AddGallery> {
                             'name': name,
                             'phoneNumber': phoneNumber,
                             'imageUrl': imageUrl,
+                          });    
 
-                          });
+                           DatabaseReference galleryRef = FirebaseDatabase
+                                  .instance
+                                  .reference()
+                                  .child('galleryNames').child('${name}');
+
+                              await galleryRef.set({
+                                'name': name,
+                                
+                              });                      
                         }
                         showAlertDialog(context);
                       },
