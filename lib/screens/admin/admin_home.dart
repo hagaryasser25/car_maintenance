@@ -1,6 +1,7 @@
 import 'package:car_maintenance/screens/admin/add_car.dart';
 import 'package:car_maintenance/screens/admin/admin_cars.dart';
 import 'package:car_maintenance/screens/admin/admin_gallery.dart';
+import 'package:car_maintenance/screens/admin/booking_list.dart';
 import 'package:car_maintenance/screens/auth/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,7 +33,7 @@ class _AdminHomeState extends State<AdminHome> {
               title: Center(child: Text('الصفحة الرئيسية')),
             ),
             body: Padding(
-              padding: EdgeInsets.only(top: 15.h,right: 10.w, left: 10.w),
+              padding: EdgeInsets.only(top: 15.h, right: 10.w, left: 10.w),
               child: Column(
                 children: [
                   Image.asset(
@@ -61,7 +62,8 @@ class _AdminHomeState extends State<AdminHome> {
                       ),
                       InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, AdminGallery.routeName);
+                            Navigator.pushNamed(
+                                context, AdminGallery.routeName);
                           },
                           child: card('أضافة معرض'))
                     ],
@@ -69,40 +71,44 @@ class _AdminHomeState extends State<AdminHome> {
                   SizedBox(height: 15.h),
                   Row(
                     children: [
+                      InkWell(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('تأكيد'),
+                                    content:
+                                        Text('هل انت متأكد من تسجيل الخروج'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          FirebaseAuth.instance.signOut();
+                                          Navigator.pushNamed(
+                                              context, UserLogin.routeName);
+                                        },
+                                        child: Text('نعم'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('لا'),
+                                      ),
+                                    ],
+                                  );
+                                });
+                          },
+                          child: card('تسجيل الخروج')),
                       SizedBox(
-                        width: 85.w,
+                        width: 8.w,
                       ),
                       InkWell(
-                        onTap: (){
-                            showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('تأكيد'),
-                                content: Text('هل انت متأكد من تسجيل الخروج'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      FirebaseAuth.instance.signOut();
-                                      Navigator.pushNamed(
-                                          context, UserLogin.routeName);
-                                    },
-                                    child: Text('نعم'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text('لا'),
-                                  ),
-                                ],
-                              );
-                            });
-                        },
-                        child: card('تسجيل الخروج')),
-                      SizedBox(
-                        width: 85.w,
-                      ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, BookingList.routeName);
+                          },
+                          child: card('قائمة الحجوزات'))
                     ],
                   ),
                 ],

@@ -1,3 +1,5 @@
+import 'package:car_maintenance/screens/user/cash_purchase.dart';
+import 'package:car_maintenance/screens/user/premium_purchase.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -57,13 +59,12 @@ class _FetchCarsState extends State<FetchCars> {
               backgroundColor: Colors.red, title: Text('قائمة السيارات')),
           body: Container(
             child: Padding(
-              padding:  EdgeInsets.only(
-                right: 10.w,
-                left: 10.w
-              ),
+              padding: EdgeInsets.only(right: 10.w, left: 10.w),
               child: Column(
                 children: [
-                  SizedBox(height: 10.h,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   TextField(
                     style: const TextStyle(
                       fontSize: 15.0,
@@ -90,7 +91,9 @@ class _FetchCarsState extends State<FetchCars> {
                       });
                     },
                   ),
-                  SizedBox(height: 10.h,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   Expanded(
                     flex: 8,
                     child: ListView.builder(
@@ -151,6 +154,72 @@ class _FetchCarsState extends State<FetchCars> {
                                                 color: Colors.black,
                                               ),
                                             ),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 40.w),
+                                              child: Row(
+                                                children: [
+                                                  ConstrainedBox(
+                                                    constraints:
+                                                        BoxConstraints.tightFor(
+                                                            width: 100,
+                                                            height: 40.h),
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              primary: HexColor(
+                                                                  '#ffba26')),
+                                                      onPressed: () async {
+                                                        Navigator.push(context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) {
+                                                          return CashPurchase(
+                                                            galleryName:
+                                                                widget.category,
+                                                            carName:
+                                                                '${carsList[index].name.toString()}',
+                                                          );
+                                                        }));
+                                                      },
+                                                      child: Text('شراء كاش'),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 50.w,
+                                                  ),
+                                                  ConstrainedBox(
+                                                    constraints:
+                                                        BoxConstraints.tightFor(
+                                                            width: 100,
+                                                            height: 40.h),
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              primary: HexColor(
+                                                                  '#ffba26')),
+                                                      onPressed: () async {
+                                                        Navigator.push(context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) {
+                                                          return PremiumPurchase(
+                                                            galleryName:
+                                                                widget.category,
+                                                            carName:
+                                                                '${carsList[index].name.toString()}',
+                                                          );
+                                                        }));
+                                                      },
+                                                      child: Text('شراء قسط'),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         )),
                                   ),

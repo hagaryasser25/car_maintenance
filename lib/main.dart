@@ -3,6 +3,8 @@ import 'package:car_maintenance/screens/admin/add_gallery.dart';
 import 'package:car_maintenance/screens/admin/admin_cars.dart';
 import 'package:car_maintenance/screens/admin/admin_gallery.dart';
 import 'package:car_maintenance/screens/admin/admin_home.dart';
+import 'package:car_maintenance/screens/admin/booking_list.dart';
+import 'package:car_maintenance/screens/admin/cars_list.dart';
 import 'package:car_maintenance/screens/auth/admin_login.dart';
 import 'package:car_maintenance/screens/auth/login_page.dart';
 import 'package:car_maintenance/screens/auth/signup_page.dart';
@@ -12,6 +14,8 @@ import 'package:car_maintenance/screens/user/user_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/admin/cash_list.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,16 +49,18 @@ class MyApp extends StatelessWidget {
               ? const AdminHome()
               : UserHome(),
       routes: {
-         SignUp.routeName: (ctx) => SignUp(),
-         UserLogin.routeName: (ctx) => UserLogin(),
-         AdminLogin.routeName: (ctx) => AdminLogin(),
-         AdminHome.routeName: (ctx) => AdminHome(),
-         AddCar.routeName: (ctx) => AddCar(),
-         AddGallery.routeName: (ctx) => AddGallery(),
-         AdminGallery.routeName: (ctx) => AdminGallery(),
-         UserHome.routeName: (ctx) => UserHome(),
-         UserCars.routeName: (ctx) => UserCars(),
-         
+        SignUp.routeName: (ctx) => SignUp(),
+        UserLogin.routeName: (ctx) => UserLogin(),
+        AdminLogin.routeName: (ctx) => AdminLogin(),
+        AdminHome.routeName: (ctx) => AdminHome(),
+        AddCar.routeName: (ctx) => AddCar(),
+        AddGallery.routeName: (ctx) => AddGallery(),
+        AdminGallery.routeName: (ctx) => AdminGallery(),
+        UserHome.routeName: (ctx) => UserHome(),
+        UserCars.routeName: (ctx) => UserCars(),
+        BookingList.routeName: (ctx) => BookingList(),
+        CarsList.routeName: (ctx) => CarsList(),
+        CashList.routeName: (ctx) => CashList(),
       },
     );
   }
